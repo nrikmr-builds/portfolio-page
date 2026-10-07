@@ -1,1042 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nripesh Kumar — Product Manager</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nripesh Kumar — Product Manager</title>
+<meta name="description" content="Portfolio of Nripesh Kumar: Senior Software Engineer at Visa turned UCLA Anderson MBA candidate. Shipped AI products for payment operations, each with a public problem-to-outcome case study.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --ink:        #0D0D0D;
-      --paper:      #F7F6F2;
-      --mid:        #6B6B6B;
-      --rule:       #E2E0D8;
-      --signal:     #1A56DB;   /* electric blue — precise, technical */
-      --signal-dim: #D6E4FF;
-      --mono-bg:    #EEECEA;
-      --radius:     6px;
-    }
+  :root {
+    --bg:            #fbf7ef;
+    --surface:       #ffffff;
+    --surface-sunk:  #f3ecdd;
+    --text:          #1c1710;
+    --text-muted:    #6c6153;
+    --border:        #e7dfcd;
+    --accent:        #c2551c;
+    --accent-ink:    #fffdf9;
+    --accent-tint:   #f6e3d2;
+    --accent-tint-border: #ecd3b8;
+    --shadow-sm:     0 1px 2px rgba(28, 23, 16, 0.04);
+    --shadow-lg:     0 20px 48px -22px rgba(28, 23, 16, 0.25);
+    --radius-lg:     18px;
+    --radius-md:     12px;
+    --radius-full:   999px;
+  }
 
-    html { scroll-behavior: smooth; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:           #16120b;
+      --surface:      #1e1911;
+      --surface-sunk: #251e13;
+      --text:         #f3eee3;
+      --text-muted:   #a89980;
+      --border:       #362c1c;
+      --accent:       #e8935a;
+      --accent-ink:   #1b1611;
+      --accent-tint:  #332512;
+      --accent-tint-border: #4a3419;
+      --shadow-lg:    0 20px 48px -22px rgba(0, 0, 0, 0.65);
+    }
+  }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      font-size: 16px;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+  :root[data-theme="dark"] {
+    --bg:           #16120b;
+    --surface:      #1e1911;
+    --surface-sunk: #251e13;
+    --text:         #f3eee3;
+    --text-muted:   #a89980;
+    --border:       #362c1c;
+    --accent:       #e8935a;
+    --accent-ink:   #1b1611;
+    --accent-tint:  #332512;
+    --accent-tint-border: #4a3419;
+    --shadow-lg:    0 20px 48px -22px rgba(0, 0, 0, 0.65);
+  }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(247,246,242,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--rule);
-    }
-    .nav-logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px; font-weight: 500;
-      color: var(--signal); letter-spacing: 0.04em;
-    }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a {
-      font-size: 13px; font-weight: 500; color: var(--mid);
-      text-decoration: none; letter-spacing: 0.02em;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--ink); }
+  html { scroll-behavior: smooth; }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 0 48px 72px;
-      border-bottom: 1px solid var(--rule);
-      position: relative; overflow: hidden;
-    }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
 
-    /* grid background — the signature element */
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(var(--rule) 1px, transparent 1px),
-        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-      background-size: 48px 48px;
-      opacity: 0.55;
-      pointer-events: none;
-    }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
 
-    /* animated status pill */
-    .status-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; font-weight: 500;
-      color: var(--signal);
-      background: var(--signal-dim);
-      border: 1px solid var(--signal);
-      border-radius: 100px;
-      padding: 5px 14px;
-      margin-bottom: 28px;
-      width: fit-content;
-      position: relative; z-index: 1;
-    }
-    .pulse {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--signal);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.75); }
-    }
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--text); text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 14px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
 
-    .hero-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px; color: var(--mid); letter-spacing: 0.08em;
-      text-transform: uppercase; margin-bottom: 16px;
-      position: relative; z-index: 1;
-    }
+  .theme-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: var(--radius-full);
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--text-muted); cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .theme-toggle .sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .moon { display: none; }
+  :root[data-theme="dark"] .theme-toggle .sun { display: block; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
+    :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
+  }
 
-    .hero-name {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(56px, 8vw, 108px);
-      font-weight: 800; line-height: 0.92;
-      letter-spacing: -0.03em;
-      position: relative; z-index: 1;
-    }
-    .hero-name .line2 {
-      color: transparent;
-      -webkit-text-stroke: 2px var(--ink);
-    }
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 26px; border-radius: var(--radius-full);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 14.5px; font-weight: 700; text-decoration: none;
+    transition: all 0.18s; cursor: pointer; border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--accent); color: var(--accent-ink);
+    box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+  .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
+  .btn-outline {
+    background: var(--surface); color: var(--text);
+    border-color: var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-    .hero-bottom {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-top: 48px; position: relative; z-index: 1;
-      flex-wrap: wrap; gap: 24px;
-    }
-    .hero-descriptor {
-      font-size: 17px; font-weight: 300; color: var(--mid);
-      max-width: 460px; line-height: 1.65;
-    }
-    .hero-descriptor strong { color: var(--ink); font-weight: 500; }
+  /* ── HERO ── */
+  .hero {
+    padding: 96px 48px 64px;
+    max-width: 980px;
+  }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border: 1px solid var(--accent-tint-border);
+    border-radius: var(--radius-full);
+    padding: 6px 14px;
+    margin-bottom: 28px;
+  }
+  .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.75); }
+  }
 
-    .hero-cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 24px; border-radius: var(--radius);
-      font-size: 14px; font-weight: 500; text-decoration: none;
-      transition: all 0.18s; cursor: pointer; border: none;
-      font-family: 'Inter', sans-serif;
-    }
-    .btn-primary {
-      background: var(--ink); color: var(--paper);
-    }
-    .btn-primary:hover { background: #2a2a2a; transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent; color: var(--ink);
-      border: 1.5px solid var(--ink);
-    }
-    .btn-outline:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+  .hero-headline {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: clamp(38px, 5.4vw, 64px);
+    font-weight: 800; line-height: 1.06;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .hero-headline .accent-line { color: var(--accent); }
 
-    /* ── SECTION WRAPPER ── */
-    section { padding: 96px 48px; border-bottom: 1px solid var(--rule); }
-    .section-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; font-weight: 500; color: var(--mid);
-      letter-spacing: 0.1em; text-transform: uppercase;
-      margin-bottom: 48px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .section-label::after {
-      content: ''; flex: 1; height: 1px; background: var(--rule);
-    }
+  .hero-sub {
+    margin-top: 22px;
+    font-size: 17px; color: var(--text-muted);
+    max-width: 58ch; line-height: 1.7;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 600; }
 
-    /* ── ABOUT ── */
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
-      align-items: start;
-    }
-    .about-headline {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(28px, 3vw, 40px);
-      font-weight: 700; line-height: 1.15;
-      letter-spacing: -0.02em;
-    }
-    .about-body {
-      color: var(--mid); font-size: 15px; line-height: 1.75;
-    }
-    .about-body p + p { margin-top: 16px; }
-    .about-body strong { color: var(--ink); font-weight: 500; }
+  .hero-credentials {
+    margin-top: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
 
-    .stat-row {
-      display: flex; gap: 40px; margin-top: 40px; flex-wrap: wrap;
-    }
-    .stat { }
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 36px; font-weight: 800; line-height: 1;
-      letter-spacing: -0.02em;
-    }
-    .stat-label {
-      font-size: 12px; color: var(--mid); margin-top: 4px;
-      font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em;
-    }
+  .hero-cta-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
 
-    /* ── PROJECTS ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-    }
-    .project-card {
-      background: #fff;
-      border: 1px solid var(--rule);
-      border-radius: 10px;
-      padding: 32px;
-      position: relative;
-      transition: box-shadow 0.2s, transform 0.2s;
-      overflow: hidden;
-    }
-    .project-card:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-      transform: translateY(-2px);
-    }
-    .project-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: var(--signal);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-    .project-card:hover::before { transform: scaleX(1); }
+  .hero-footnote {
+    margin-top: 28px;
+    font-size: 13px; color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-footnote + .hero-footnote { margin-top: 10px; }
 
-    .card-status {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; font-weight: 500;
-      padding: 3px 10px; border-radius: 100px;
-      margin-bottom: 20px;
-    }
-    .status-building {
-      background: #FEF3C7; color: #92400E;
-      border: 1px solid #FDE68A;
-    }
-    .status-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  /* ── STAT STRIP ── */
+  .stat-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .stat-strip .eyebrow { grid-column: 1 / -1; margin-bottom: 4px; }
+  .strip-stat { display: flex; flex-direction: column; gap: 4px; }
+  .strip-num {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 34px; font-weight: 800; letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .strip-label { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
-    .card-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; color: var(--rule);
-      font-weight: 500; margin-bottom: 8px;
-    }
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 19px; font-weight: 700;
-      line-height: 1.2; margin-bottom: 10px;
-    }
-    .card-desc {
-      font-size: 13.5px; color: var(--mid);
-      line-height: 1.65; margin-bottom: 20px;
-    }
-    .card-tags {
-      display: flex; flex-wrap: wrap; gap: 6px;
-    }
-    .tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; font-weight: 500;
-      background: var(--mono-bg); color: var(--mid);
-      padding: 3px 9px; border-radius: 4px;
-    }
-    .card-signal {
-      margin-top: 20px; padding-top: 20px;
-      border-top: 1px solid var(--rule);
-      font-size: 12px; color: var(--mid); line-height: 1.55;
-    }
-    .card-signal strong { color: var(--ink); }
+  /* ── SECTION WRAPPER ── */
+  section { padding: 88px 48px; border-bottom: 1px solid var(--border); }
+  .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 48px; }
+  .section-head .eyebrow { white-space: nowrap; }
+  .section-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    /* capstone card */
-    .project-card.capstone {
-      grid-column: 1 / -1;
-      background: var(--ink); color: var(--paper);
-      border-color: var(--ink);
-    }
-    .capstone .card-num { color: #333; }
-    .capstone .card-desc { color: #9CA3AF; }
-    .capstone .tag { background: #1f1f1f; color: #9CA3AF; }
-    .capstone .card-signal { border-color: #2a2a2a; color: #9CA3AF; }
-    .capstone .card-signal strong { color: var(--paper); }
-    .capstone .card-status { background: #1f1f1f; color: #60A5FA; border-color: #2563EB; }
-    .capstone::before { background: var(--signal); }
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: start;
+  }
+  .about-headline {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: clamp(26px, 2.8vw, 36px);
+    font-weight: 700; line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .about-body { color: var(--text-muted); font-size: 15.5px; line-height: 1.8; }
+  .about-body p + p { margin-top: 16px; }
+  .about-body strong { color: var(--text); font-weight: 600; }
 
-    /* ── EXPERIENCE ── */
-    .exp-list { display: flex; flex-direction: column; gap: 0; }
-    .exp-item {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 32px;
-      padding: 36px 0;
-      border-bottom: 1px solid var(--rule);
-      align-items: start;
-    }
-    .exp-item:first-child { padding-top: 0; }
-    .exp-meta { }
-    .exp-period {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; color: var(--mid); letter-spacing: 0.04em;
-    }
-    .exp-company {
-      font-family: 'Syne', sans-serif;
-      font-size: 15px; font-weight: 700; margin-top: 6px;
-    }
-    .exp-role {
-      font-size: 13px; color: var(--mid); margin-top: 2px;
-    }
-    .exp-content { }
-    .exp-bullets {
-      list-style: none; display: flex; flex-direction: column; gap: 10px;
-    }
-    .exp-bullets li {
-      font-size: 14px; color: var(--mid); line-height: 1.65;
-      padding-left: 16px; position: relative;
-    }
-    .exp-bullets li::before {
-      content: '→';
-      position: absolute; left: 0;
-      color: var(--signal); font-size: 12px;
-    }
-    .exp-bullets li strong { color: var(--ink); font-weight: 500; }
+  /* ── PROJECTS / CASE STUDIES ── */
+  .section-intro { max-width: 680px; margin-bottom: 56px; }
+  .section-intro h2 {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: clamp(28px, 3.4vw, 42px);
+    font-weight: 800; line-height: 1.12;
+    letter-spacing: -0.02em; margin-bottom: 14px;
+    text-wrap: balance;
+  }
+  .section-intro p { font-size: 15.5px; color: var(--text-muted); line-height: 1.7; }
 
-    /* ── STACK ── */
-    .stack-grid {
-      display: flex; flex-wrap: wrap; gap: 10px;
-    }
-    .stack-chip {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px; font-weight: 500;
-      background: var(--mono-bg);
-      border: 1px solid var(--rule);
-      color: var(--ink);
-      padding: 6px 14px; border-radius: var(--radius);
-      transition: all 0.15s;
-    }
-    .stack-chip:hover {
-      background: var(--signal-dim);
-      border-color: var(--signal);
-      color: var(--signal);
-    }
+  .case-list { display: flex; flex-direction: column; gap: 28px; }
 
-    /* ── CONTACT ── */
-    .contact-inner {
-      max-width: 640px;
-    }
-    .contact-headline {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 800; line-height: 1.05;
-      letter-spacing: -0.02em; margin-bottom: 20px;
-    }
-    .contact-sub {
-      font-size: 15px; color: var(--mid); line-height: 1.7;
-      margin-bottom: 36px;
-    }
-    .contact-links {
-      display: flex; flex-wrap: wrap; gap: 12px;
-    }
+  .case-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+    align-items: stretch;
+    padding: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .case-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
 
-    /* ── FOOTER ── */
-    footer {
-      padding: 28px 48px;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 12px;
-    }
-    .footer-left {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; color: var(--mid);
-    }
-    .footer-right {
-      font-size: 12px; color: var(--mid);
-    }
+  .case-preview {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: stretch;
+  }
+  .case-gif { width: 100%; height: auto; display: block; background: #fff; }
 
-    /* ── PRODUCT DEMOS ── */
-    .demos-section {
-      background: linear-gradient(180deg, var(--paper) 0%, #fff 100%);
-    }
-    .demos-intro {
-      max-width: 720px;
-      margin-bottom: 64px;
-    }
-    .demos-headline {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 800; line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-    .demos-sub {
-      font-size: 15px; color: var(--mid); line-height: 1.7;
-    }
+  /* spotlight panel for the on-the-job project (no gif available) */
+  .spotlight-panel {
+    width: 100%;
+    background: var(--text);
+    color: var(--bg);
+    padding: 32px;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 22px;
+  }
+  .spotlight-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: color-mix(in srgb, var(--bg) 60%, transparent);
+  }
+  .spotlight-figure { display: flex; flex-direction: column; gap: 2px; }
+  .spotlight-num {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 46px; font-weight: 800; letter-spacing: -0.02em;
+  }
+  .spotlight-cap { font-size: 13px; color: color-mix(in srgb, var(--bg) 65%, transparent); }
+  .spotlight-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    padding-top: 18px; border-top: 1px solid color-mix(in srgb, var(--bg) 18%, transparent);
+  }
+  .spotlight-grid .strip-num { font-size: 22px; color: var(--bg); }
+  .spotlight-grid .strip-label { color: color-mix(in srgb, var(--bg) 60%, transparent); }
 
-    .demo-showcase {
-      display: flex; flex-direction: column; gap: 80px;
-    }
+  .case-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; font-weight: 500;
+    padding: 4px 11px; border-radius: var(--radius-full);
+    background: var(--accent-tint); color: var(--accent);
+    border: 1px solid var(--accent-tint-border);
+    margin-bottom: 18px; width: fit-content;
+  }
+  .status-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
 
-    .demo-card {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: start;
-      padding: 40px;
-      background: #fff;
-      border: 1px solid var(--rule);
-      border-radius: 12px;
-      transition: all 0.3s ease;
-    }
-    .demo-card:hover {
-      box-shadow: 0 12px 48px rgba(0,0,0,0.1);
-      transform: translateY(-4px);
-    }
+  .case-details { display: flex; flex-direction: column; gap: 22px; }
 
-    .demo-preview {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-    }
+  .case-title {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 21px; font-weight: 700; letter-spacing: -0.01em;
+  }
+  .case-tagline { font-size: 14px; color: var(--text-muted); margin-top: 4px; line-height: 1.55; }
 
-    .demo-mockup {
-      background: #fff;
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .demo-mockup.dark {
-      background: #1a1a1a;
-      border-color: #333;
-    }
+  .case-framework { display: flex; flex-direction: column; gap: 14px; }
+  .case-framework .step {
+    display: grid; grid-template-columns: 76px 1fr; gap: 14px;
+  }
+  .case-framework .step-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; font-weight: 600; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding-top: 2px;
+  }
+  .case-framework p { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
+  .case-framework .outcome p { color: var(--text); font-weight: 500; }
 
-    .mockup-header {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 16px;
-      background: #f5f5f5;
-      border-bottom: 1px solid var(--rule);
-    }
-    .dark .mockup-header {
-      background: #2a2a2a;
-      border-bottom-color: #333;
-    }
-    .mockup-dots {
-      display: flex; gap: 6px;
-    }
-    .mockup-dots span {
-      width: 10px; height: 10px; border-radius: 50%;
-      background: #ddd;
-    }
-    .mockup-dots span:first-child { background: #ff5f57; }
-    .mockup-dots span:nth-child(2) { background: #ffbd2e; }
-    .mockup-dots span:last-child { background: #28ca42; }
-    .mockup-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px; color: var(--mid); font-weight: 500;
-    }
-    .dark .mockup-title { color: #888; }
+  .case-metrics {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .case-metric { text-align: center; }
+  .case-metric .num {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 24px; font-weight: 800; color: var(--accent); line-height: 1;
+  }
+  .case-metric .desc { font-size: 10.5px; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.02em; }
 
-    .mockup-content {
-      padding: 24px;
-      min-height: 280px;
-    }
-    .mockup-content.terminal {
-      background: #0d0d0d;
-      font-family: 'JetBrains Mono', monospace;
-    }
+  .case-insight {
+    display: flex; gap: 10px;
+    padding: 14px 16px;
+    background: var(--surface-sunk);
+    border-radius: var(--radius-md);
+    font-size: 13px; color: var(--text-muted); line-height: 1.6;
+  }
+  .case-insight strong { color: var(--text); }
 
-    .mockup-sidebar {
-      display: flex; flex-direction: column; gap: 8px;
-      width: 60px;
-    }
-    .mockup-nav-item {
-      height: 8px; border-radius: 4px;
-      background: var(--mono-bg);
-    }
-    .mockup-nav-item.active {
-      background: var(--signal);
-    }
+  .case-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; font-weight: 500;
+    background: var(--surface-sunk); color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 6px;
+  }
 
-    .mockup-main {
-      flex: 1; padding-left: 24px;
-    }
-    .mockup-metric {
-      margin-bottom: 24px;
-    }
-    .metric-value {
-      font-family: 'Syne', sans-serif;
-      font-size: 32px; font-weight: 800;
-      color: var(--ink);
-    }
-    .metric-label {
-      font-size: 11px; color: var(--mid);
-      font-family: 'JetBrains Mono', monospace;
-      margin-top: 4px;
-    }
+  /* ── EXPERIENCE / EDUCATION ── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    padding: 34px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .exp-item:first-child { padding-top: 0; }
+  .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.03em;
+  }
+  .exp-company {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 16px; font-weight: 700; margin-top: 6px;
+  }
+  .exp-role { font-size: 13.5px; color: var(--text-muted); margin-top: 2px; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .exp-bullets li {
+    font-size: 14.5px; color: var(--text-muted); line-height: 1.68;
+    padding-left: 18px; position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 12px;
+  }
+  .exp-bullets li strong { color: var(--text); font-weight: 600; }
 
-    .mockup-chart {
-      display: flex; align-items: flex-end; gap: 8px;
-      height: 120px;
-    }
-    .chart-bar {
-      flex: 1;
-      background: var(--signal);
-      border-radius: 4px 4px 0 0;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-    }
-    .chart-bar:hover { opacity: 1; }
+  /* ── STACK ── */
+  .stack-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+  .stack-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; font-weight: 500;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px; border-radius: var(--radius-full);
+    transition: all 0.15s;
+  }
+  .stack-chip:hover { background: var(--accent-tint); border-color: var(--accent-tint-border); color: var(--accent); }
 
-    .terminal-line {
-      display: flex; gap: 8px;
-      margin-bottom: 16px;
-      color: #28ca42;
-      font-size: 12px;
-    }
-    .terminal-prompt {
-      color: #888;
-    }
-    .terminal-text {
-      color: #fff;
-    }
-    .terminal-output {
-      display: flex; gap: 24px;
-      align-items: center;
-      padding: 16px;
-      background: #1a1a1a;
-      border-radius: 6px;
-    }
+  /* ── CONTACT ── */
+  .contact-inner { max-width: 640px; }
+  .contact-headline {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.02em; margin-bottom: 18px;
+    text-wrap: balance;
+  }
+  .contact-sub { font-size: 15.5px; color: var(--text-muted); line-height: 1.7; margin-bottom: 32px; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
 
-    .score-circle {
-      position: relative;
-      width: 100px; height: 100px;
-    }
-    .score-circle svg {
-      transform: rotate(-90deg);
-      width: 100%; height: 100%;
-    }
-    .score-bg {
-      fill: none;
-      stroke: #333;
-      stroke-width: 8;
-    }
-    .score-fill {
-      fill: none;
-      stroke: var(--signal);
-      stroke-width: 8;
-      stroke-linecap: round;
-      stroke-dasharray: 283;
-      transition: stroke-dashoffset 1s ease;
-    }
-    .score-text {
-      position: absolute;
-      inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-size: 28px; font-weight: 800;
-      color: #fff;
-    }
-    .score-text span {
-      font-size: 14px; color: #888;
-    }
+  /* ── FOOTER ── */
+  footer {
+    padding: 30px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-left { font-size: 13.5px; color: var(--text-muted); }
+  .footer-social { display: flex; align-items: center; gap: 4px; }
+  .icon-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: var(--radius-full);
+    color: var(--text-muted); transition: color 0.2s, background 0.2s;
+  }
+  .icon-link:hover { color: var(--accent); background: var(--accent-tint); }
+  .icon-link svg { width: 17px; height: 17px; }
 
-    .score-breakdown {
-      flex: 1;
-    }
-    .score-item {
-      display: flex; justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid #2a2a2a;
-      font-size: 12px;
-    }
-    .score-item:last-child { border-bottom: none; }
-    .score-label { color: #888; }
-    .score-val { color: #fff; font-weight: 600; }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .case-card { grid-template-columns: 1fr; }
+    .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  }
 
-    .parser-demo {
-      display: flex; flex-direction: column; gap: 16px;
-    }
-    .parser-input, .parser-output {
-      border: 1px solid var(--rule);
-      border-radius: 6px;
-      padding: 12px;
-    }
-    .parser-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; color: var(--mid);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 8px;
-    }
-    .parser-email {
-      font-size: 12px; color: var(--mid);
-      line-height: 1.6;
-      font-style: italic;
-    }
-    .parser-arrow {
-      text-align: center;
-      color: var(--signal);
-      font-size: 18px;
-      font-weight: 700;
-    }
-    .parser-fields {
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .field {
-      display: flex; justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--rule);
-    }
-    .field:last-child { border-bottom: none; }
-    .field-label {
-      font-size: 11px; color: var(--mid);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .field-value {
-      font-size: 12px; color: var(--ink);
-      font-weight: 600;
-    }
-    .field-value.confidence-high {
-      color: #28a745;
-    }
+  @media (max-width: 680px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 56px 20px 48px; }
+    section { padding: 56px 20px; }
+    .stat-strip { padding: 32px 20px; grid-template-columns: repeat(2, 1fr); }
+    footer { padding: 24px 20px; }
+    .exp-item { grid-template-columns: 1fr; gap: 10px; }
+    .case-metrics { grid-template-columns: 1fr 1fr; gap: 12px 10px; }
+    .case-metric:last-child { grid-column: 1 / -1; }
+  }
 
-    .demo-overlay {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 24px;
-      background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-      color: #fff;
-    }
-    .demo-badge {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; font-weight: 500;
-      padding: 3px 10px;
-      background: var(--signal);
-      color: #fff;
-      border-radius: 100px;
-      margin-bottom: 8px;
-    }
-    .demo-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 24px; font-weight: 800;
-      margin-bottom: 4px;
-    }
-    .demo-tagline {
-      font-size: 13px; color: #ccc;
-    }
-
-    .demo-details {
-      display: flex; flex-direction: column; gap: 28px;
-    }
-
-    .demo-framework {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr auto 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-    .framework-step {
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .step-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; font-weight: 600;
-      color: var(--signal);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    .framework-step p {
-      font-size: 13.5px;
-      color: var(--mid);
-      line-height: 1.6;
-    }
-    .framework-arrow {
-      color: var(--signal);
-      font-size: 20px;
-      font-weight: 700;
-      padding-top: 16px;
-    }
-    .metric-highlight {
-      color: var(--ink) !important;
-      font-weight: 600 !important;
-    }
-
-    .demo-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      padding: 20px 0;
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-    .demo-metric {
-      text-align: center;
-    }
-    .metric-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 32px; font-weight: 800;
-      color: var(--signal);
-      line-height: 1;
-    }
-    .metric-desc {
-      font-size: 11px; color: var(--mid);
-      margin-top: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.04em;
-    }
-
-    .demo-quote {
-      padding: 20px;
-      background: var(--signal-dim);
-      border-left: 3px solid var(--signal);
-      border-radius: 6px;
-    }
-    .demo-quote blockquote {
-      font-size: 14px;
-      color: var(--ink);
-      line-height: 1.65;
-      font-style: italic;
-      margin: 0 0 8px 0;
-    }
-    .demo-quote cite {
-      font-size: 12px;
-      color: var(--mid);
-      font-style: normal;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .demo-tags {
-      display: flex; flex-wrap: wrap; gap: 8px;
-    }
-
-    .card-demo-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 16px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--signal);
-      text-decoration: none;
-      font-family: 'JetBrains Mono', monospace;
-      transition: gap 0.2s;
-    }
-    .card-demo-link:hover {
-      gap: 10px;
-    }
-
-    .demo-gif {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 8px;
-      background: #fff;
-    }
-
-    .demo-preview {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-      background: #fff;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .demo-card {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        padding: 24px;
-      }
-      .demo-framework {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .framework-arrow {
-        transform: rotate(90deg);
-        padding: 0;
-        text-align: center;
-      }
-      .demo-metrics {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .mockup-main {
-        padding-left: 16px;
-      }
-      .metric-value {
-        font-size: 24px;
-      }
-      .mockup-chart {
-        height: 80px;
-      }
-
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      .hero { padding: 0 24px 56px; }
-      section { padding: 64px 24px; }
-      .about-grid { grid-template-columns: 1fr; gap: 32px; }
-      .exp-item { grid-template-columns: 1fr; gap: 8px; }
-      footer { padding: 20px 24px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-    }
-  </style>
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo"></span>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <a href="#top" class="nav-logo">Nripesh K.</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="top">
+<section class="hero" id="top" style="border-bottom:none; padding-bottom:0;">
   <div class="status-pill">
     <span class="pulse"></span>
-    Building products · Open to PM opportunities
+    Open to Product &amp; AI PM roles
   </div>
-  <p class="hero-eyebrow">Software Engineer → Product Manager</p>
-  <h1 class="hero-name">
-    Nripesh<br>
-    <span class="line2">Kumar</span>
-  </h1>
-  <div class="hero-bottom">
-    <p class="hero-descriptor">
-      <strong>UCLA Anderson MBA '28.</strong> Former Senior SWE at Visa.
-      Building enterprise products at the intersection of
-      data, automation, and user-centered design.
-    </p>
-    <div class="hero-cta-group">
-      <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="https://www.linkedin.com/in/nripesh-kumar" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
-    </div>
+  <p class="eyebrow" style="margin-bottom:14px;">Software Engineer → Product Manager</p>
+  <h1 class="hero-headline">Built the infrastructure.<br><span class="accent-line">Now I want the roadmap.</span></h1>
+  <p class="hero-sub">
+    <strong>UCLA Anderson MBA '28.</strong> Four years as a Senior Software Engineer on Visa's Commercial Money Movement Solutions team, shipping B2B payments infrastructure. Now learning to own the strategy behind it — not just the code.
+  </p>
+  <p class="hero-credentials">UCLA Anderson MBA '28 · Columbia M.S. Computer Science · ex-Visa</p>
+  <div class="hero-cta-group">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="Nripesh_Kumar_PM_latest.docx" download class="btn btn-outline">Download Résumé ↓</a>
+  </div>
+  <p class="hero-footnote">705 GMAT Focus · Merit Fellowship Awardee · 4 AI products shipped, each with a public case study</p>
+  <p class="hero-footnote">Trilingual, plus rusty French · Tolstoy and Camus on the nightstand · building AI-optimized workouts on the side</p>
+</section>
+
+<!-- STAT STRIP -->
+<section class="stat-strip" style="padding-top:64px;">
+  <p class="eyebrow">By the numbers</p>
+  <div class="strip-stat">
+    <div class="strip-num">4+</div>
+    <div class="strip-label">Years in fintech engineering</div>
+  </div>
+  <div class="strip-stat">
+    <div class="strip-num">$17.8M</div>
+    <div class="strip-label">Virtual card volume, V-ARM's first month</div>
+  </div>
+  <div class="strip-stat">
+    <div class="strip-num">60x</div>
+    <div class="strip-label">Faster BRD review, built at Visa</div>
+  </div>
+  <div class="strip-stat">
+    <div class="strip-num">4</div>
+    <div class="strip-label">AI products shipped solo for this portfolio</div>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <p class="section-label">About</p>
+  <div class="section-head"><p class="eyebrow">About</p></div>
   <div class="about-grid">
-    <div>
-      <h2 class="about-headline">Engineer who thinks in products. Builder who ships.</h2>
-      <div class="stat-row">
-        <div class="stat">
-          <div class="stat-num">4+</div>
-          <div class="stat-label">Years at Visa</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">2</div>
-          <div class="stat-label">Graduate Degrees</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">95</div>
-          <div class="stat-label">CareerLeader · Tech Interest</div>
-        </div>
-      </div>
-    </div>
+    <h2 class="about-headline">Engineer who thinks in products. Builder who ships.</h2>
     <div class="about-body">
-      <p>I spent four years as a Senior Software Engineer at <strong>Visa</strong>, helping launch V-ARM — Visa's first B2B accounts receivables product.</p>
-      <p>Before that, I earned an <strong>M.S. in Computer Science (ML specialization) from Columbia University</strong> and a <strong>B.Tech. in CS from NIT Trichy</strong>. I'm now joining <strong>UCLA Anderson's MBA program</strong> to make the full transition into product management.</p>
-      <p>I'm currently building a portfolio of <strong>enterprise products</strong> — working in public, shipping fast, and documenting the product decisions.</p>
+      <p>I spent four years as a Senior Software Engineer at <strong>Visa</strong>, helping launch V-ARM — Visa's B2B virtual card payments platform.</p>
+      <p>Before that, I earned an <strong>M.S. in Computer Science (ML specialization) from Columbia University</strong> and a <strong>B.Tech. in CS from NIT Trichy</strong>. I'm now at <strong>UCLA Anderson's MBA program</strong> to make the full transition into product management.</p>
+      <p>I'm currently building a portfolio of <strong>AI-powered enterprise products</strong> — working in public, shipping fast, and documenting the product decisions behind each one.</p>
     </div>
   </div>
 </section>
 
-<!-- PRODUCT DEMOS -->
-<section id="demos" class="demos-section">
-  <p class="section-label">Product Demos</p>
-  <div class="demos-intro">
-    <h2 class="demos-headline">Products I've built — from problem to shipped solution</h2>
-    <p class="demos-sub">Each demo shows the user problem, my PM approach, and measurable outcomes. Click to explore the full product story.</p>
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-intro">
+    <h2>Products I've built — from problem to shipped solution</h2>
+    <p>Each case study shows the user problem, my product approach, and a measurable outcome. The first is a product I shipped as an engineer at Visa; the rest are self-directed AI products built solo for this portfolio.</p>
   </div>
-  
-  <div class="demo-showcase">
-    
-    <!-- Demo 1: V-ARM -->
-    <div class="demo-card" data-demo="varm">
-      <div class="demo-preview">
-        <div class="demo-mockup">
-          <div class="mockup-header">
-            <div class="mockup-dots">
-              <span></span><span></span><span></span>
-            </div>
-            <span class="mockup-title">V-ARM Dashboard</span>
+
+  <div class="case-list">
+
+    <!-- Case 1: V-ARM -->
+    <div class="case-card">
+      <div class="case-preview">
+        <div class="spotlight-panel">
+          <p class="spotlight-eyebrow">V-ARM · Visa's B2B virtual card payments platform</p>
+          <div class="spotlight-figure">
+            <div class="spotlight-num">$17.8M</div>
+            <div class="spotlight-cap">in virtual card transaction volume, V-ARM's first month</div>
           </div>
-          <div class="mockup-content">
-            <div class="mockup-sidebar">
-              <div class="mockup-nav-item active"></div>
-              <div class="mockup-nav-item"></div>
-              <div class="mockup-nav-item"></div>
+          <div class="spotlight-grid">
+            <div class="strip-stat">
+              <div class="strip-num">50%</div>
+              <div class="strip-label">less localization effort</div>
             </div>
-            <div class="mockup-main">
-              <div class="mockup-metric">
-                <div class="metric-value">$2.4M</div>
-                <div class="metric-label">AR Tracked</div>
-              </div>
-              <div class="mockup-chart">
-                <div class="chart-bar" style="height: 60%"></div>
-                <div class="chart-bar" style="height: 80%"></div>
-                <div class="chart-bar" style="height: 45%"></div>
-                <div class="chart-bar" style="height: 90%"></div>
-              </div>
+            <div class="strip-stat">
+              <div class="strip-num">3 mo</div>
+              <div class="strip-label">to full capability</div>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="demo-details">
-        <div class="demo-framework">
-          <div class="framework-step">
-            <div class="step-label">Problem</div>
-            <p>Finance teams spent 10+ hours/week manually tracking $2.4M in overdue accounts across spreadsheets and email.</p>
-          </div>
-          <div class="framework-arrow">→</div>
-          <div class="framework-step">
-            <div class="step-label">Solution</div>
-            <p>Co-defined MVP with 12 enterprise customers. Built automated aging reports, payment prediction, and smart follow-up workflows.</p>
-          </div>
-          <div class="framework-arrow">→</div>
-          <div class="framework-step">
-            <div class="step-label">Outcome</div>
-            <p class="metric-highlight">85% reduction in manual work · $340K recovered in Q1 · 94% customer satisfaction</p>
-          </div>
+
+      <div class="case-details">
+        <div>
+          <span class="case-status"><span class="status-dot"></span>Shipped @ Visa</span>
+          <h3 class="case-title">V-ARM — B2B Virtual Card Payments</h3>
+          <p class="case-tagline">Commercial Money Movement Solutions · translated product requirements into the integration contracts and APIs that launched V-ARM.</p>
         </div>
-        
-        <div class="demo-metrics">
-          <div class="demo-metric">
-            <div class="metric-number">85%</div>
-            <div class="metric-desc">Time saved</div>
-          </div>
-          <div class="demo-metric">
-            <div class="metric-number">$340K</div>
-            <div class="metric-desc">Q1 recovery</div>
-          </div>
-          <div class="demo-metric">
-            <div class="metric-number">94%</div>
-            <div class="metric-desc">CSAT score</div>
-          </div>
+        <div class="case-framework">
+          <div class="step outcome"><div class="step-label">Problem</div><p>Launching a B2B virtual card platform meant turning ambiguous product requirements into integration contracts and APIs that issuers, processors, and engineering could build against — while two separate schedule risks threatened the launch date.</p></div>
+          <div class="step"><div class="step-label">Solution</div><p>Flagged a 20% throughput loss early enough to ship a phased MVP on time, then recovered a one-month security delay by restructuring sequential work into parallel execution across Engineering and Cybersecurity. Later rebuilt localization as a configuration-driven framework to unlock the European launch.</p></div>
+          <div class="step outcome"><div class="step-label">Outcome</div><p>$17.8M in first-month virtual card volume · on-time launch despite two schedule risks · new markets with zero code changes</p></div>
         </div>
-        
-        
-        <div class="demo-tags">
+        <div class="case-metrics">
+          <div class="case-metric"><div class="num">$17.8M</div><div class="desc">FIRST-MONTH VOLUME</div></div>
+          <div class="case-metric"><div class="num">50%</div><div class="desc">LESS LOCALIZATION EFFORT</div></div>
+          <div class="case-metric"><div class="num">3 mo</div><div class="desc">TO FULL CAPABILITY</div></div>
+        </div>
+        <div class="case-insight"><div><strong>PM insight:</strong> Owned the requirements-to-API translation layer end-to-end, and protected the launch date twice — by catching risk early, and by renegotiating how the team would deliver, not whether.</div></div>
+        <div class="case-tags">
           <span class="tag">Enterprise B2B</span>
           <span class="tag">Fintech</span>
-          <span class="tag">User Research</span>
-          <span class="tag">GTM Strategy</span>
+          <span class="tag">API Design</span>
+          <span class="tag">Cross-functional Leadership</span>
         </div>
       </div>
     </div>
 
-    <!-- Demo 2: BRD Tool -->
-    <div class="demo-card" data-demo="brd">
-      <div class="demo-preview">
-        <img src="prd-reviewer-demo.gif" alt="PRD Quality Reviewer Demo" class="demo-gif">
+    <!-- Case 2: PRD Reviewer -->
+    <div class="case-card">
+      <div class="case-preview">
+        <img src="prd-reviewer-demo.gif" alt="PRD Quality Reviewer Demo" class="case-gif">
       </div>
-      
-      <div class="demo-details">
-        <div class="demo-framework">
-          <div class="framework-step">
-            <div class="step-label">Problem</div>
-            <p>Product managers spent 2 hours reviewing each Business Requirements Document for clarity, completeness, and edge cases.</p>
-          </div>
-          <div class="framework-arrow">→</div>
-          <div class="framework-step">
-            <div class="step-label">Solution</div>
-            <p>Built multi-agent AI pipeline using Claude API to score BRDs across 12 dimensions with section-level feedback and improvement suggestions.</p>
-          </div>
-          <div class="framework-arrow">→</div>
-          <div class="framework-step">
-            <div class="step-label">Outcome</div>
-            <p class="metric-highlight">2 hours → 2 minutes · 60x faster · 40% improvement in first-pass quality</p>
-          </div>
+      <div class="case-details">
+        <div>
+          <span class="case-status"><span class="status-dot"></span>Self-built · Shipped</span>
+          <h3 class="case-title">PRD Quality Reviewer</h3>
+          <p class="case-tagline">Scores a pasted PRD against the SMART framework with section-level reasoning and suggestions.</p>
         </div>
-        
-        <div class="demo-metrics">
-          <div class="demo-metric">
-            <div class="metric-number">60x</div>
-            <div class="metric-desc">Faster review</div>
-          </div>
-          <div class="demo-metric">
-            <div class="metric-number">40%</div>
-            <div class="metric-desc">Quality boost</div>
-          </div>
-          <div class="demo-metric">
-            <div class="metric-number">12</div>
-            <div class="metric-desc">Dimensions scored</div>
-          </div>
+        <div class="case-framework">
+          <div class="step"><div class="step-label">Problem</div><p>Product managers spent 2 hours reviewing each requirements document for clarity, completeness, and edge cases.</p></div>
+          <div class="step"><div class="step-label">Solution</div><p>Built an AI pipeline using the Gemini API to score PRDs across 5 SMART dimensions with per-criterion feedback and improvement suggestions.</p></div>
+          <div class="step outcome"><div class="step-label">Outcome</div><p>2 hours → 2 minutes · 60x faster · clear, actionable per-section feedback</p></div>
         </div>
-        
-        
-        <div class="demo-tags">
-          <span class="tag">AI/ML</span>
-          <span class="tag">Multi-Agent</span>
-          <span class="tag">Developer Tools</span>
-          <span class="tag">Productivity</span>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="num">60x</div><div class="desc">FASTER REVIEW</div></div>
+          <div class="case-metric"><div class="num">5</div><div class="desc">SMART DIMENSIONS</div></div>
+          <div class="case-metric"><div class="num">0→100</div><div class="desc">SCORED OUTPUT</div></div>
+        </div>
+        <div class="case-insight"><div><strong>PM insight:</strong> Built after designing the same pattern at Visa — 6 parallel AI agents that cut BRD review from 2 hours to 2 minutes. This is the public version: Gemini-based SMART scoring anyone can try.</div></div>
+        <div class="case-tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">Gemini API</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Tailwind CSS</span>
         </div>
       </div>
     </div>
 
-    <!-- Demo 3: Payment Parser -->
-    <div class="demo-card" data-demo="parser">
-      <div class="demo-preview">
-        <img src="payment-parser-demo.gif" alt="Payment Instruction Parser Demo" class="demo-gif">
+    <!-- Case 3: Payment Parser -->
+    <div class="case-card">
+      <div class="case-preview">
+        <img src="payment-parser-demo.gif" alt="Payment Instruction Parser Demo" class="case-gif">
       </div>
-      
-      <div class="demo-details">
-        <div class="demo-framework">
-          <div class="framework-step">
-            <div class="step-label">Problem</div>
-            <p>Finance teams often receive payment instructions through messy email threads, forwarded invoices, and informal reminders. Manual extraction creates delays and increases the risk of missing due dates, vendors, or payment methods.</p>
-          </div>
-          <div class="framework-arrow">→</div>
-          <div class="framework-step">
-            <div class="step-label">Solution</div>
-            <p>Built an internal finance tool that accepts .txt and .eml email uploads, extracts payment instructions using structured outputs, and stores results in PostgreSQL for review. The Streamlit interface gives operators a simple workflow: upload, inspect, and review extraction history.</p>
-          </div>
-          <div class="framework-arrow">→</div>
-          <div class="framework-step">
-            <div class="step-label">Outcome</div>
-            <p class="metric-highlight">Reduces manual data entry · Handles multiple payment requests per email · Improves extraction reliability</p>
-          </div>
+      <div class="case-details">
+        <div>
+          <span class="case-status"><span class="status-dot"></span>Self-built · Shipped</span>
+          <h3 class="case-title">Payment Instruction Parser</h3>
+          <p class="case-tagline">Extracts structured payment data from messy .txt and .eml emails with confidence scores.</p>
         </div>
-        
-        <div class="demo-metrics">
-          <div class="demo-metric">
-            <div class="metric-number">100%</div>
-            <div class="metric-desc">Automated extraction</div>
-          </div>
-          <div class="demo-metric">
-            <div class="metric-number">Multi</div>
-            <div class="metric-desc">Payment per email</div>
-          </div>
-          <div class="demo-metric">
-            <div class="metric-number">Audit</div>
-            <div class="metric-desc">Ready history</div>
-          </div>
+        <div class="case-framework">
+          <div class="step"><div class="step-label">Problem</div><p>Finance teams receive payment instructions through messy email threads, forwarded invoices, and informal reminders — manual extraction risks missing due dates, vendors, or payment methods.</p></div>
+          <div class="step"><div class="step-label">Solution</div><p>Built a finance tool that accepts email uploads, extracts structured payment instructions via LLM structured outputs, and stores results in PostgreSQL for review and audit.</p></div>
+          <div class="step outcome"><div class="step-label">Outcome</div><p>Reduces manual data entry · handles multiple payments per email · audit-ready extraction history</p></div>
         </div>
-        
-        <div class="demo-tags">
+        <div class="case-metrics">
+          <div class="case-metric"><div class="num">100%</div><div class="desc">AUTOMATED EXTRACTION</div></div>
+          <div class="case-metric"><div class="num">Multi</div><div class="desc">PAYMENTS PER EMAIL</div></div>
+          <div class="case-metric"><div class="num">Audit</div><div class="desc">READY HISTORY</div></div>
+        </div>
+        <div class="case-insight"><div><strong>PM insight:</strong> Rooted in regex-based email parsing I shipped at Visa — I logged the tradeoffs of swapping brittle rules for an LLM and where hallucination risk still requires a human check.</div></div>
+        <div class="case-tags">
           <span class="tag">Python</span>
           <span class="tag">FastAPI</span>
           <span class="tag">Streamlit</span>
@@ -1045,65 +649,86 @@
       </div>
     </div>
 
+    <!-- Case 4: Dispute Classifier -->
+    <div class="case-card">
+      <div class="case-preview">
+        <img src="dispute-classifier-demo.gif" alt="B2B Payments Dispute Classifier Demo" class="case-gif">
+      </div>
+      <div class="case-details">
+        <div>
+          <span class="case-status"><span class="status-dot"></span>Self-built · Shipped</span>
+          <h3 class="case-title">B2B Payments Dispute Classifier</h3>
+          <p class="case-tagline">Triage assistant for bank dispute analysts — AI that recommends, never decides alone.</p>
+        </div>
+        <div class="case-framework">
+          <div class="step"><div class="step-label">Problem</div><p>Dispute analysts spend 15–30 minutes per case reading unstructured dispute text and cross-referencing resolution playbooks — roughly $125K/month in analyst time for a mid-size bank, with inconsistent outcomes across analysts.</p></div>
+          <div class="step"><div class="step-label">Solution</div><p>Built an AI triage assistant that classifies disputes, suggests a resolution path, and flags regulatory requirements in seconds — using confidence-tiered routing (HIGH/MEDIUM/LOW) so low-confidence or contradictory cases are automatically blocked from automation and routed to mandatory human review.</p></div>
+          <div class="step outcome"><div class="step-label">Outcome</div><p>15–30 min → seconds per case · AI as assistant, not decision-maker · full audit trail for compliance</p></div>
+        </div>
+        <div class="case-metrics">
+          <div class="case-metric"><div class="num">3-tier</div><div class="desc">CONFIDENCE ROUTING</div></div>
+          <div class="case-metric"><div class="num">$125K</div><div class="desc">MONTHLY COST AT STAKE</div></div>
+          <div class="case-metric"><div class="num">100%</div><div class="desc">HUMAN REVIEW ON LOW CONFIDENCE</div></div>
+        </div>
+        <div class="case-insight"><div><strong>PM insight:</strong> Shows how to handle model uncertainty in a regulated industry — confidence thresholds, mandatory escalation, and auditability, not just a clever prompt.</div></div>
+        <div class="case-tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">Gemini API</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Tailwind CSS</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <p class="section-label">All Projects</p>
-  <div class="projects-grid">
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-head"><p class="eyebrow">Experience</p></div>
+  <div class="exp-list">
 
-    <!-- P1 -->
-    <div class="project-card">
-      <span class="card-status status-building"><span class="status-dot"></span>Shipped</span>
-      <p class="card-num">01</p>
-      <h3 class="card-title">Payment Instruction Parser</h3>
-      <p class="card-desc">Intelligent extraction of structured payment data from unstructured emails — improving accuracy and reducing manual data entry for accounts payable teams.</p>
-      <div class="card-tags">
-        <span class="tag">Python</span>
-        <span class="tag">FastAPI</span>
-        <span class="tag">LLM</span>
-        <span class="tag">Streamlit</span>
-        <span class="tag">PostgreSQL</span>
+    <div class="exp-item">
+      <div>
+        <p class="exp-period">Jul 2022 → Jul 2026</p>
+        <p class="exp-company">Visa</p>
+        <p class="exp-role">Senior Software Engineer, Commercial Money Movement Solutions</p>
+        <p class="exp-role">Atlanta, GA</p>
       </div>
-      <div class="card-signal">
-        <strong>PM insight:</strong> Solving a $2.4M pain point in enterprise finance operations with intelligent automation.
-      </div>
-      <a href="#demos" class="card-demo-link">View Demo →</a>
+      <ul class="exp-bullets">
+        <li>Launched V-ARM, a B2B virtual card payments platform, translating product requirements into integration contracts and APIs, enabling <strong>$17.8M</strong> in first-month virtual card transaction volume.</li>
+        <li>Protected V-ARM's launch date by flagging a 20% throughput loss and proposing a phased MVP, launching on time and reaching full capability within 3 months.</li>
+        <li>Recovered a one-month V-ARM security delay by restructuring sequential work into parallel execution across Engineering and Cybersecurity, preserving full scope and the original MVP launch date.</li>
+        <li>Unlocked V-ARM's European launch by rebuilding localization as a configuration-driven framework, cutting localization effort <strong>50%</strong> and enabling new markets with zero code changes.</li>
+        <li>Cut BRD review time from 2 hours to 2 minutes for Product and Engineering by designing <strong>6 parallel AI agents</strong> that score requirements and recommend rewrites.</li>
+        <li>Improved engineering velocity by launching a repository-aware GenAI assistant adopted by 60+ developers, increasing deployment frequency <strong>25%</strong> and reducing time to pass unit-test coverage and security checks <strong>30%</strong>.</li>
+        <li>Mentored 4 engineers in Visa Startup Bootcamp through product ideation, AI/payment-flow prototyping, and pitching, helping the team place <strong>3rd among 20 teams globally</strong>.</li>
+      </ul>
     </div>
 
-    <!-- P2 -->
-    <div class="project-card">
-      <span class="card-status status-building"><span class="status-dot"></span>Shipped</span>
-      <p class="card-num">02</p>
-      <h3 class="card-title">PRD Quality Reviewer</h3>
-      <p class="card-desc">Intelligent scoring of product requirements documents across clarity, completeness, edge-case coverage, and acceptance criteria quality.</p>
-      <div class="card-tags">
-        <span class="tag">Python</span>
-        <span class="tag">LLM</span>
-        <span class="tag">Streamlit</span>
+    <div class="exp-item">
+      <div>
+        <p class="exp-period">Jun 2021 → May 2022</p>
+        <p class="exp-company">Columbia University</p>
+        <p class="exp-role">Graduate Research Assistant, E3B Dept. — Environmental Science &amp; Policy</p>
+        <p class="exp-role">New York, NY</p>
       </div>
-      <div class="card-signal">
-        <strong>PM insight:</strong> Demonstrates expertise in requirements definition and quality assurance — a rare skill for PM candidates.
-      </div>
-      <a href="#demos" class="card-demo-link">View Demo →</a>
+      <ul class="exp-bullets">
+        <li>Accelerated satellite imagery delivery by designing a configurable ingestion pipeline around researcher requirements and API constraints, processing <strong>2TB</strong> while increasing daily ETL throughput by 30%.</li>
+        <li>Automated manual GIS workflows to produce analysis-ready maps from overlapping satellite imagery, reducing researcher hours by 20% and freeing time for deforestation analysis.</li>
+      </ul>
     </div>
 
-    <!-- P3 -->
-    <div class="project-card">
-      <span class="card-status status-building"><span class="status-dot"></span>Shipped</span>
-      <p class="card-num">03</p>
-      <h3 class="card-title">B2B Payments Dispute Classifier</h3>
-      <p class="card-desc">Intelligent classification of payment disputes by type, resolution path, and regulatory flag — with confidence thresholds for human review.</p>
-      <div class="card-tags">
-        <span class="tag">Spring Boot</span>
-        <span class="tag">LLM</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">React</span>
+    <div class="exp-item">
+      <div>
+        <p class="exp-period">Oct 2020 → Dec 2020</p>
+        <p class="exp-company">Flatworld Solutions</p>
+        <p class="exp-role">Analyst Intern, global automation &amp; AI consulting firm</p>
+        <p class="exp-role">Bangalore, India</p>
       </div>
-      <div class="card-signal">
-        <strong>PM insight:</strong> Shows how to handle model uncertainty in regulated industries — a critical PM skill.
-      </div>
+      <ul class="exp-bullets">
+        <li>Reduced mortgage application processing time by <strong>40%</strong> by automating data extraction with Amazon Textract and designing custom table parsing with human review for ambiguous fields.</li>
+      </ul>
     </div>
 
   </div>
@@ -1111,14 +736,15 @@
 
 <!-- EDUCATION -->
 <section id="education">
-  <p class="section-label">Education</p>
+  <div class="section-head"><p class="eyebrow">Education</p></div>
   <div class="exp-list">
 
     <div class="exp-item">
-      <div class="exp-meta">
-        <p class="exp-period">2026 → 2028</p>
+      <div>
+        <p class="exp-period">2026 → Jun 2028</p>
         <p class="exp-company">UCLA Anderson School of Management</p>
         <p class="exp-role">M.B.A., Full-Time Program</p>
+        <p class="exp-role">Los Angeles, CA</p>
       </div>
       <ul class="exp-bullets">
         <li><strong>705 GMAT Focus (750 GMAT equivalent).</strong> Merit-based Fellowship Awardee.</li>
@@ -1128,10 +754,11 @@
     </div>
 
     <div class="exp-item">
-      <div class="exp-meta">
-        <p class="exp-period">2021 → 2022</p>
+      <div>
+        <p class="exp-period">2021 → Jun 2022</p>
         <p class="exp-company">Columbia University</p>
         <p class="exp-role">M.S. Computer Science, ML Specialization</p>
+        <p class="exp-role">New York, NY</p>
       </div>
       <ul class="exp-bullets">
         <li>Machine Learning specialization with focus on NLP and computer vision applications.</li>
@@ -1139,10 +766,11 @@
     </div>
 
     <div class="exp-item">
-      <div class="exp-meta">
-        <p class="exp-period">2016 → 2020</p>
+      <div>
+        <p class="exp-period">2016 → Jun 2020</p>
         <p class="exp-company">National Institute of Technology, Trichy</p>
         <p class="exp-role">B.Tech. Honors, Computer Science</p>
+        <p class="exp-role">Trichy, India</p>
       </div>
       <ul class="exp-bullets">
         <li>Economics Minor.</li>
@@ -1154,69 +782,28 @@
   </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section id="experience">
-  <p class="section-label">Experience</p>
-  <div class="exp-list">
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <p class="exp-period">2022 → Present</p>
-        <p class="exp-company">Visa</p>
-        <p class="exp-role">Senior Software Engineer</p>
-      </div>
-      <ul class="exp-bullets">
-        <li>Co-defined and launched V-ARM, Visa's first B2B accounts receivables product, unlocking <strong>$17.8M</strong> in transactions in the first month.</li>
-        <li>Built a BRD scoring tool that reduced requirements review time by <strong>60x</strong> (2 hours → 2 minutes) and improved quality by 40%.</li>
-        <li>Led cross-regional teams to recover a 1-month schedule slip and deliver ahead of regulatory deadline.</li>
-        <li>Enabled EU market expansion through multilingual data extraction and localization.</li>
-        <li>Increased deployment frequency by <strong>25%</strong> and reduced time-to-quality by <strong>30%</strong> using AI-assisted development tools.</li>
-      </ul>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <p class="exp-period">2021 → 2022</p>
-        <p class="exp-company">Columbia University</p>
-        <p class="exp-role">Graduate Research Assistant</p>
-      </div>
-      <ul class="exp-bullets">
-        <li>Defined requirements and built a data pipeline processing <strong>2TB of satellite imagery</strong>, increasing throughput by 30%.</li>
-        <li>Translated researcher needs into a self-serve tool, accelerating rainforest mapping workflows by 20%.</li>
-      </ul>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <p class="exp-period">2020</p>
-        <p class="exp-company">Flatworld Solutions</p>
-        <p class="exp-role">Analyst Intern</p>
-      </div>
-      <ul class="exp-bullets">
-        <li>Scoped and delivered an intelligent document extraction solution, reducing mortgage processing time by <strong>40%</strong>.</li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
 <!-- STACK -->
 <section id="stack">
-  <p class="section-label">Technical fluency</p>
+  <div class="section-head"><p class="eyebrow">Technical fluency</p></div>
   <div class="stack-grid">
     <span class="stack-chip">LLM / GenAI</span>
-    <span class="stack-chip">Claude API</span>
+    <span class="stack-chip">Claude API · Claude Agent SDK</span>
+    <span class="stack-chip">Gemini API · Google AI Studio</span>
+    <span class="stack-chip">MCP</span>
+    <span class="stack-chip">LangChain / LangGraph</span>
     <span class="stack-chip">Multi-agent Systems</span>
-    <span class="stack-chip">RAG Pipelines</span>
     <span class="stack-chip">Python</span>
     <span class="stack-chip">Java · Spring Boot</span>
-    <span class="stack-chip">Node.js</span>
-    <span class="stack-chip">React</span>
-    <span class="stack-chip">PostgreSQL</span>
-    <span class="stack-chip">pgvector</span>
+    <span class="stack-chip">Node.js · Next.js</span>
+    <span class="stack-chip">React · TypeScript</span>
+    <span class="stack-chip">SQL · PostgreSQL</span>
+    <span class="stack-chip">Docker · Kubernetes</span>
     <span class="stack-chip">Kafka</span>
+    <span class="stack-chip">CI/CD · Jenkins</span>
+    <span class="stack-chip">GitHub</span>
+    <span class="stack-chip">Swagger / OpenAPI</span>
     <span class="stack-chip">Streamlit</span>
-    <span class="stack-chip">Vercel · Railway</span>
+    <span class="stack-chip">Figma · Jira</span>
     <span class="stack-chip">Agile / Scrum</span>
     <span class="stack-chip">Product Roadmapping</span>
     <span class="stack-chip">PRD Writing</span>
@@ -1226,8 +813,8 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <p class="section-label">Get in touch</p>
+<section id="contact" style="border-bottom:none;">
+  <div class="section-head"><p class="eyebrow">Get in touch</p></div>
   <div class="contact-inner">
     <h2 class="contact-headline">Let's build something that matters.</h2>
     <p class="contact-sub">
@@ -1235,18 +822,48 @@
     </p>
     <div class="contact-links">
       <a href="mailto:nrikmr88@g.ucla.edu" class="btn btn-primary">nrikmr88@g.ucla.edu</a>
-      <a href="https://www.linkedin.com/in/nripesh-kumar" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
-      <a href="https://github.com/aiPmDev-droid" target="_blank" class="btn btn-outline">GitHub ↗</a>
-      <a href="Nripesh_Kumar_PM_Plat_v2.pdf" download class="btn btn-outline">Download Resume ↓</a>
+      <a href="https://www.linkedin.com/in/nripesh-kumar" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn ↗</a>
+      <a href="https://github.com/aiPmDev-droid" target="_blank" rel="noopener" class="btn btn-outline">GitHub ↗</a>
+      <a href="https://nripeshthebuilder.com" target="_blank" rel="noopener" class="btn btn-outline">nripeshthebuilder.com ↗</a>
+      <a href="Nripesh_Kumar_PM_latest.docx" download class="btn btn-outline">Download Résumé ↓</a>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-left">© 2026 Nripesh Kumar</span>
-    <span class="footer-right">UCLA Anderson MBA '28 · ex-Visa · Building products</span>
+  <span class="footer-left">© 2026 Nripesh Kumar · Based in Los Angeles, open to opportunities anywhere</span>
+  <div class="footer-social">
+    <a href="https://www.linkedin.com/in/nripesh-kumar" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://github.com/aiPmDev-droid" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+    </a>
+    <a href="mailto:nrikmr88@g.ucla.edu" class="icon-link" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+    </a>
+  </div>
 </footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var toggle = document.getElementById('themeToggle');
+    var stored = null;
+    try { stored = localStorage.getItem('theme'); } catch (e) {}
+    if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+
+    toggle.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var effectiveDark = current ? current === 'dark' : prefersDark;
+      var next = effectiveDark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
 
 </body>
 </html>
