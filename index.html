@@ -478,6 +478,42 @@
   .icon-link:hover { color: var(--accent); background: var(--accent-tint); }
   .icon-link svg { width: 17px; height: 17px; }
 
+  /* ── AMBIENT BACKGROUND ── */
+  /* Soft warm glows drifting slowly behind the content. Static when reduced motion is on. */
+  :root {
+    --glow-1: rgba(194, 85, 28, 0.22);
+    --glow-2: rgba(236, 168, 104, 0.32);
+    --glow-3: rgba(222, 196, 150, 0.45);
+  }
+  :root[data-theme="dark"] {
+    --glow-1: rgba(232, 147, 90, 0.15);
+    --glow-2: rgba(196, 112, 54, 0.14);
+    --glow-3: rgba(150, 110, 70, 0.17);
+  }
+  .ambient { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .ambient span {
+    position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%;
+    will-change: transform;
+  }
+  .ambient span:nth-child(1) {
+    top: -30vmax; left: -20vmax;
+    background: radial-gradient(circle, var(--glow-1) 0%, transparent 62%);
+    animation: drift-1 14s ease-in-out infinite alternate;
+  }
+  .ambient span:nth-child(2) {
+    bottom: -35vmax; right: -25vmax;
+    background: radial-gradient(circle, var(--glow-2) 0%, transparent 62%);
+    animation: drift-2 18s ease-in-out infinite alternate;
+  }
+  .ambient span:nth-child(3) {
+    top: 20vh; left: 30vw;
+    background: radial-gradient(circle, var(--glow-3) 0%, transparent 60%);
+    animation: drift-3 22s ease-in-out infinite alternate;
+  }
+  @keyframes drift-1 { to { transform: translate(38vw, 30vh) scale(1.2); } }
+  @keyframes drift-2 { to { transform: translate(-40vw, -28vh) scale(0.85); } }
+  @keyframes drift-3 { to { transform: translate(-28vw, 22vh) scale(1.25); } }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
     .about-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -506,6 +542,8 @@
 </style>
 </head>
 <body>
+
+<div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
 
 <!-- NAV -->
 <nav>
@@ -575,7 +613,7 @@
   <div class="about-grid">
     <h2 class="about-headline">Engineer who thinks in products. Builder who ships.</h2>
     <div class="about-body">
-      <p>I spent four years as a Senior Software Engineer at <strong>Visa</strong>, helping launch V-ARM — Visa's B2B virtual card payments platform.</p>
+      <p>I spent four years as a Senior Software Engineer at <strong>Visa</strong>, helping launch Visa Accounts Receivable Manager (V-ARM) — Visa's B2B virtual card payments platform.</p>
       <p>Before that, I earned an <strong>M.S. in Computer Science (ML specialization) from Columbia University</strong> and a <strong>B.Tech. in CS from NIT Trichy</strong>. I'm now at <strong>UCLA Anderson's MBA program</strong> to make the full transition into product management.</p>
       <p>I'm currently building a portfolio of <strong>AI-powered enterprise products</strong> — working in public, shipping fast, and documenting the product decisions behind each one.</p>
     </div>
@@ -595,7 +633,7 @@
     <div class="case-card">
       <div class="case-preview">
         <div class="spotlight-panel">
-          <p class="spotlight-eyebrow">V-ARM · Visa's B2B virtual card payments platform</p>
+          <p class="spotlight-eyebrow">V-ARM (Visa AR Manager) · Visa's B2B virtual card payments platform</p>
           <div class="spotlight-figure">
             <div class="spotlight-num">$17.8M</div>
             <div class="spotlight-cap">in virtual card transaction volume, V-ARM's first month</div>
@@ -616,7 +654,7 @@
       <div class="case-details">
         <div>
           <span class="case-status"><span class="status-dot"></span>Shipped @ Visa</span>
-          <h3 class="case-title">V-ARM — B2B Virtual Card Payments</h3>
+          <h3 class="case-title">V-ARM (Visa AR Manager) — B2B Virtual Card Payments</h3>
           <p class="case-tagline">Commercial Money Movement Solutions · translated product requirements into the integration contracts and APIs that launched V-ARM.</p>
         </div>
         <div class="case-framework">
@@ -635,6 +673,8 @@
           <span class="tag">Fintech</span>
           <span class="tag">API Design</span>
           <span class="tag">Cross-functional Leadership</span>
+          <a class="tag tag-link" href="https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.20026.html" target="_blank" rel="noopener">Visa press release ↗</a>
+          <a class="tag tag-link" href="https://developer.visa.com/docs/visa-ar-manager" target="_blank" rel="noopener">Developer docs ↗</a>
         </div>
       </div>
     </div>
