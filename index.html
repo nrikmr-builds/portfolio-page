@@ -23,6 +23,32 @@
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
+<script>
+  // Visit notification: one beacon per browser session, sent to /api/visit (emails the site owner).
+  // Visit the site once with ?me=1 to stop notifications for your own browser (?me=0 to undo).
+  (function () {
+    try {
+      var q = new URLSearchParams(location.search).get('me');
+      if (q === '1') localStorage.setItem('skipVisitPing', '1');
+      if (q === '0') localStorage.removeItem('skipVisitPing');
+      if (localStorage.getItem('skipVisitPing') === '1') return;
+      if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+      if (navigator.webdriver || sessionStorage.getItem('visitPinged')) return;
+      sessionStorage.setItem('visitPinged', '1');
+      var data = JSON.stringify({
+        path: location.pathname + location.hash,
+        referrer: document.referrer,
+        screen: screen.width + '×' + screen.height,
+        language: navigator.language,
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+      });
+      var blob = new Blob([data], { type: 'application/json' });
+      if (!(navigator.sendBeacon && navigator.sendBeacon('/api/visit', blob))) {
+        fetch('/api/visit', { method: 'POST', body: data, headers: { 'Content-Type': 'application/json' }, keepalive: true });
+      }
+    } catch (e) {}
+  })();
+</script>
 <title>Nripesh Kumar — Product Manager</title>
 <meta name="description" content="Portfolio of Nripesh Kumar: Senior Software Engineer at Visa turned UCLA Anderson MBA candidate. Shipped AI products for payment operations, each with a public problem-to-outcome case study.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
