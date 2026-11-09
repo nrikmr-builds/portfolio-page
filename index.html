@@ -3,6 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+  // Light by day, dark from 5pm to 6am in the visitor's local time.
+  // A manual toggle lasts for the current visit only.
+  (function () {
+    var t = null;
+    try { t = sessionStorage.getItem('theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      var h = new Date().getHours();
+      t = (h >= 17 || h < 6) ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<!-- Vercel Web Analytics + Speed Insights (served by Vercel; no-ops when opened locally) -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 <title>Nripesh Kumar — Product Manager</title>
 <meta name="description" content="Portfolio of Nripesh Kumar: Senior Software Engineer at Visa turned UCLA Anderson MBA candidate. Shipped AI products for payment operations, each with a public problem-to-outcome case study.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -142,8 +162,23 @@
   /* ── HERO ── */
   .hero {
     padding: 96px 48px 64px;
-    max-width: 980px;
+    max-width: 1180px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 56px;
+    align-items: center;
   }
+  .hero-photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    display: block;
+  }
+  .hero-text { min-width: 0; }
   .status-pill {
     display: inline-flex; align-items: center; gap: 8px;
     font-family: 'JetBrains Mono', monospace;
@@ -378,6 +413,16 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.03em;
   }
+  .org-logo {
+    display: flex; align-items: center; justify-content: center;
+    width: 176px; height: 68px; padding: 10px 14px;
+    margin-bottom: 14px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .org-logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .org-logo.is-seal { width: 68px; padding: 4px; }
   .exp-company {
     font-family: 'Instrument Sans', sans-serif;
     font-size: 16px; font-weight: 700; margin-top: 6px;
@@ -436,6 +481,7 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
     .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero { grid-template-columns: 200px 1fr; gap: 40px; }
     .case-card { grid-template-columns: 1fr; }
     .stat-strip { grid-template-columns: repeat(2, 1fr); }
   }
@@ -443,7 +489,8 @@
   @media (max-width: 680px) {
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
-    .hero { padding: 56px 20px 48px; }
+    .hero { padding: 56px 20px 48px; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .hero-photo { width: 160px; }
     section { padding: 56px 20px; }
     .stat-strip { padding: 32px 20px; grid-template-columns: repeat(2, 1fr); }
     footer { padding: 24px 20px; }
@@ -480,6 +527,8 @@
 
 <!-- HERO -->
 <section class="hero" id="top" style="border-bottom:none; padding-bottom:0;">
+  <img src="nripesh-kumar.jpg" alt="Portrait of Nripesh Kumar" class="hero-photo" width="640" height="800">
+  <div class="hero-text">
   <div class="status-pill">
     <span class="pulse"></span>
     Open to Product &amp; AI PM roles
@@ -492,10 +541,11 @@
   <p class="hero-credentials">UCLA Anderson MBA '28 · Columbia M.S. Computer Science · ex-Visa</p>
   <div class="hero-cta-group">
     <a href="#projects" class="btn btn-primary">View Projects</a>
-    <a href="Nripesh_Kumar_PM_latest.docx" download class="btn btn-outline">Download Résumé ↓</a>
+    <a href="Nripesh_Kumar_MBA.pdf" download class="btn btn-outline">Download Résumé ↓</a>
   </div>
   <p class="hero-footnote">705 GMAT Focus · Merit Fellowship Awardee · 4 AI products shipped, each with a public case study</p>
   <p class="hero-footnote">Trilingual, plus rusty French · Tolstoy and Camus on the nightstand · building AI-optimized workouts on the side</p>
+  </div>
 </section>
 
 <!-- STAT STRIP -->
@@ -570,9 +620,9 @@
           <p class="case-tagline">Commercial Money Movement Solutions · translated product requirements into the integration contracts and APIs that launched V-ARM.</p>
         </div>
         <div class="case-framework">
-          <div class="step outcome"><div class="step-label">Problem</div><p>Launching a B2B virtual card platform meant turning ambiguous product requirements into integration contracts and APIs that issuers, processors, and engineering could build against — while two separate schedule risks threatened the launch date.</p></div>
+          <div class="step outcome"><div class="step-label">Problem</div><p>Launching a B2B virtual card platform meant turning issuing and acquiring bank requirements into integration contracts and APIs that issuers, processors, and engineering could build against — while two separate schedule risks threatened the launch date.</p></div>
           <div class="step"><div class="step-label">Solution</div><p>Flagged a 20% throughput loss early enough to ship a phased MVP on time, then recovered a one-month security delay by restructuring sequential work into parallel execution across Engineering and Cybersecurity. Later rebuilt localization as a configuration-driven framework to unlock the European launch.</p></div>
-          <div class="step outcome"><div class="step-label">Outcome</div><p>$17.8M in first-month virtual card volume · on-time launch despite two schedule risks · new markets with zero code changes</p></div>
+          <div class="step outcome"><div class="step-label">Outcome</div><p>$17.8M in first-month virtual card volume · on-time launch despite two schedule risks · 2 new markets with zero code changes</p></div>
         </div>
         <div class="case-metrics">
           <div class="case-metric"><div class="num">$17.8M</div><div class="desc">FIRST-MONTH VOLUME</div></div>
@@ -616,6 +666,8 @@
           <span class="tag">Gemini API</span>
           <span class="tag">TypeScript</span>
           <span class="tag">Tailwind CSS</span>
+          <a class="tag tag-link" href="https://prd-quality-reviewer.vercel.app" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="tag tag-link" href="https://github.com/nrikmr-builds/prd-quality-reviewer" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -647,6 +699,8 @@
           <span class="tag">FastAPI</span>
           <span class="tag">Streamlit</span>
           <span class="tag">PostgreSQL</span>
+          <a class="tag tag-link" href="https://payment-instruction-parser.vercel.app" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="tag tag-link" href="https://github.com/nrikmr-builds/payment-instruction-parser" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -678,6 +732,8 @@
           <span class="tag">Gemini API</span>
           <span class="tag">TypeScript</span>
           <span class="tag">Tailwind CSS</span>
+          <a class="tag tag-link" href="https://payment-dispute-classifier.vercel.app" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="tag tag-link" href="https://github.com/nrikmr-builds/payment-dispute-classifier" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -710,6 +766,7 @@
           <span class="tag">Vite</span>
           <span class="tag">Tailwind CSS</span>
           <a class="tag tag-link" href="https://nrikmr-builds.github.io/cmu-case-comp-2026/" target="_blank" rel="noopener">Live demo ↗</a>
+          <a class="tag tag-link" href="https://github.com/nrikmr-builds/cmu-case-comp-2026" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -724,18 +781,18 @@
 
     <div class="exp-item">
       <div>
+        <div class="org-logo"><img src="logos/visa.svg" alt="Visa logo" loading="lazy"></div>
         <p class="exp-period">Jul 2022 → Jul 2026</p>
         <p class="exp-company">Visa</p>
         <p class="exp-role">Senior Software Engineer, Commercial Money Movement Solutions</p>
         <p class="exp-role">Atlanta, GA</p>
       </div>
       <ul class="exp-bullets">
-        <li>Launched V-ARM, a B2B virtual card payments platform, translating product requirements into integration contracts and APIs, enabling <strong>$17.8M</strong> in first-month virtual card transaction volume.</li>
-        <li>Protected V-ARM's launch date by flagging a 20% throughput loss and proposing a phased MVP, launching on time and reaching full capability within 3 months.</li>
-        <li>Recovered a one-month V-ARM security delay by restructuring sequential work into parallel execution across Engineering and Cybersecurity, preserving full scope and the original MVP launch date.</li>
-        <li>Unlocked V-ARM's European launch by rebuilding localization as a configuration-driven framework, cutting localization effort <strong>50%</strong> and enabling new markets with zero code changes.</li>
-        <li>Cut BRD review time from 2 hours to 2 minutes for Product and Engineering by designing <strong>6 parallel AI agents</strong> that score requirements and recommend rewrites.</li>
-        <li>Improved engineering velocity by launching a repository-aware GenAI assistant adopted by 60+ developers, increasing deployment frequency <strong>25%</strong> and reducing time to pass unit-test coverage and security checks <strong>30%</strong>.</li>
+        <li>Launched Visa Accounts Receivable Manager (V-ARM), a B2B virtual card payments platform, translating issuing and acquiring bank requirements into integration contracts and APIs that enabled <strong>$17.8M</strong> in first-month transaction volume.</li>
+        <li>Protected V-ARM's launch by phasing features after identifying a 20% payment workflow throughput loss and parallelizing a one-month security remediation, delivering full capability within 3 months.</li>
+        <li>Unlocked V-ARM's European launch by rebuilding localization as a configuration-driven framework, cutting localization effort <strong>50%</strong> and enabling 2 new markets with zero code changes.</li>
+        <li>Cut BRD review time from 2 hours to 2 minutes for 5 Product and Engineering reviewers by designing <strong>6 parallel AI agents</strong> built around the review bottlenecks they flagged.</li>
+        <li>Launched a repository-aware GenAI assistant addressing code-navigation and debugging bottlenecks, reaching 60+ developers and increasing deployment frequency by <strong>25%</strong>.</li>
         <li>Mentored 4 engineers in Visa Startup Bootcamp through product ideation, AI/payment-flow prototyping, and pitching, helping the team place <strong>3rd among 20 teams globally</strong>.</li>
       </ul>
     </div>
@@ -743,13 +800,13 @@
     <div class="exp-item">
       <div>
         <p class="exp-period">Jun 2021 → May 2022</p>
-        <p class="exp-company">Columbia University</p>
-        <p class="exp-role">Graduate Research Assistant, E3B Dept. — Environmental Science &amp; Policy</p>
+        <p class="exp-company">E3B Department, Columbia University</p>
+        <p class="exp-role">Graduate Research Assistant · Environmental science &amp; policy program</p>
         <p class="exp-role">New York, NY</p>
       </div>
       <ul class="exp-bullets">
-        <li>Accelerated satellite imagery delivery by designing a configurable ingestion pipeline around researcher requirements and API constraints, processing <strong>2TB</strong> while increasing daily ETL throughput by 30%.</li>
-        <li>Automated manual GIS workflows to produce analysis-ready maps from overlapping satellite imagery, reducing researcher hours by 20% and freeing time for deforestation analysis.</li>
+        <li>Accelerated satellite imagery delivery by designing a configurable ingestion pipeline around researcher requirements and API constraints, processing <strong>2 TB</strong> while increasing daily ETL throughput by 30%.</li>
+        <li>Automated manual Geographic Information Systems workflows to produce analysis-ready maps from overlapping satellite imagery, reducing researcher hours by 20% and freeing time for deforestation analysis.</li>
       </ul>
     </div>
 
@@ -757,11 +814,23 @@
       <div>
         <p class="exp-period">Oct 2020 → Dec 2020</p>
         <p class="exp-company">Flatworld Solutions</p>
-        <p class="exp-role">Analyst Intern, global automation &amp; AI consulting firm</p>
+        <p class="exp-role">Analyst Intern · Global automation, AI, and software consulting firm</p>
         <p class="exp-role">Bangalore, India</p>
       </div>
       <ul class="exp-bullets">
         <li>Reduced mortgage application processing time by <strong>40%</strong> by automating data extraction with Amazon Textract and designing custom table parsing with human review for ambiguous fields.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <p class="exp-period">Community</p>
+        <p class="exp-company">Volunteer</p>
+        <p class="exp-role">Atlanta, GA</p>
+      </div>
+      <ul class="exp-bullets">
+        <li>Organized donations and managed inventory at Lost-N-Found Youth Thrift Store.</li>
+        <li>Collaborated with Visa volunteers to distribute <strong>19,259 lbs of food (16,048 meals)</strong> at Atlanta Community Food Bank.</li>
       </ul>
     </div>
 
@@ -775,42 +844,38 @@
 
     <div class="exp-item">
       <div>
+        <div class="org-logo"><img src="logos/ucla-anderson.svg" alt="UCLA Anderson School of Management logo" loading="lazy"></div>
         <p class="exp-period">2026 → Jun 2028</p>
         <p class="exp-company">UCLA Anderson School of Management</p>
         <p class="exp-role">M.B.A., Full-Time Program</p>
         <p class="exp-role">Los Angeles, CA</p>
       </div>
       <ul class="exp-bullets">
-        <li><strong>705 GMAT Focus (750 GMAT equivalent).</strong> Merit-based Fellowship Awardee.</li>
-        <li>Concentrating on product management, technology strategy, and entrepreneurship.</li>
-        <li>Active member: AnderTech, Management Consulting Association.</li>
+        <li><strong>705 GMAT Focus (750 GMAT).</strong></li>
+        <li><strong>Honors:</strong> Merit Fellowship; Selected Mentee, Center for Global Management Mentor Program.</li>
+        <li><strong>Leadership:</strong> Director of Program Relations, Japan America Business Association.</li>
+        <li><strong>Projects:</strong> DisputeAI, a human-in-the-loop AI classifier for bank dispute analysts, cutting 15–30 minute manual reviews to ≤15 seconds across 30 test disputes.</li>
       </ul>
     </div>
 
     <div class="exp-item">
       <div>
+        <div class="org-logo"><img src="logos/columbia.svg" alt="Columbia University logo" loading="lazy"></div>
         <p class="exp-period">2021 → Jun 2022</p>
         <p class="exp-company">Columbia University</p>
-        <p class="exp-role">M.S. Computer Science, ML Specialization</p>
+        <p class="exp-role">M.S. Computer Science, Machine Learning Specialization</p>
         <p class="exp-role">New York, NY</p>
       </div>
-      <ul class="exp-bullets">
-        <li>Machine Learning specialization with focus on NLP and computer vision applications.</li>
-      </ul>
     </div>
 
     <div class="exp-item">
       <div>
+        <div class="org-logo is-seal"><img src="logos/nit-trichy.png" alt="NIT Trichy seal" loading="lazy"></div>
         <p class="exp-period">2016 → Jun 2020</p>
         <p class="exp-company">National Institute of Technology, Trichy</p>
-        <p class="exp-role">B.Tech. Honors, Computer Science</p>
+        <p class="exp-role">B.Tech. Honors, Computer Science, Economics Minor</p>
         <p class="exp-role">Trichy, India</p>
       </div>
-      <ul class="exp-bullets">
-        <li>Economics Minor.</li>
-        <li>Organized Ethical Hacking workshop and Blind Coding competition (Pragyan Tech Fest).</li>
-        <li>Led technology awareness workshops for school students (National Service Scheme).</li>
-      </ul>
     </div>
 
   </div>
@@ -835,7 +900,8 @@
     <span class="stack-chip">Kafka</span>
     <span class="stack-chip">CI/CD · Jenkins</span>
     <span class="stack-chip">GitHub</span>
-    <span class="stack-chip">Swagger / OpenAPI</span>
+    <span class="stack-chip">Swagger / OpenAPI · Postman</span>
+    <span class="stack-chip">Claude Code · Cline</span>
     <span class="stack-chip">Streamlit</span>
     <span class="stack-chip">Figma · Jira</span>
     <span class="stack-chip">Agile / Scrum</span>
@@ -859,7 +925,7 @@
       <a href="https://www.linkedin.com/in/nripesh-kumar" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn ↗</a>
       <a href="https://github.com/nrikmr-builds" target="_blank" rel="noopener" class="btn btn-outline">GitHub ↗</a>
       <a href="https://nripeshthebuilder.com" target="_blank" rel="noopener" class="btn btn-outline">nripeshthebuilder.com ↗</a>
-      <a href="Nripesh_Kumar_PM_latest.docx" download class="btn btn-outline">Download Résumé ↓</a>
+      <a href="Nripesh_Kumar_MBA.pdf" download class="btn btn-outline">Download Résumé ↓</a>
     </div>
   </div>
 </section>
@@ -884,9 +950,7 @@
   (function () {
     var root = document.documentElement;
     var toggle = document.getElementById('themeToggle');
-    var stored = null;
-    try { stored = localStorage.getItem('theme'); } catch (e) {}
-    if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+    try { localStorage.removeItem('theme'); } catch (e) {}
 
     toggle.addEventListener('click', function () {
       var current = root.getAttribute('data-theme');
@@ -894,7 +958,7 @@
       var effectiveDark = current ? current === 'dark' : prefersDark;
       var next = effectiveDark ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
-      try { localStorage.setItem('theme', next); } catch (e) {}
+      try { sessionStorage.setItem('theme', next); } catch (e) {}
     });
   })();
 </script>
